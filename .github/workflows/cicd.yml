@@ -1,0 +1,27 @@
+name: Hello
+
+on:
+  workflow_dispatch: 
+
+jobs: 
+  code:
+    runs-on: ubuntu-latest
+    steps: 
+      - name: checkout code
+        run: echo "Cloning code from github"
+  build:
+    runs-on: ubuntu-latest
+    steps: 
+      - name: build the code
+        run: echo "Containerizing"
+  test:
+    runs-on: ubuntu-latest
+    steps: 
+      - name: testing the code
+        run: echo "Testing the build"
+  deploy:
+    runs-on: ubuntu-latest
+    steps: 
+      - name: deployment
+        run: echo "Deploying the app"
+        
