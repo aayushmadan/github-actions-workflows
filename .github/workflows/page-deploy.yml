@@ -5,6 +5,7 @@ on:
     branches: [main]
 
 permissions:
+  contents: read
   pages: write
   id-token: write
 
@@ -12,25 +13,22 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
 
-    env:
-      ACTIONS_ALLOW_USE_UNSECURE_NODE_VERSION: true
-
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
 
     steps:
-      # get access to your code via prebuilt actions
       - name: Checkout code
         uses: actions/checkout@v6
 
-      # setup github pages
-      - name: Setup github pages
+      - name: Setup GitHub Pages
         uses: actions/configure-pages@v5
 
-      # static code artifacts
       - name: Upload static files
         uses: actions/upload-pages-artifact@v4
+        with:
+          path: .
 
-      - name: Deploy to github pages
+      - name: Deploy to GitHub Pages
+        id: deployment
         uses: actions/deploy-pages@v4
