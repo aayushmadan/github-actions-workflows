@@ -2,6 +2,17 @@ name: cicd
 
 on:
   workflow_dispatch: 
+    # inputs:
+    #   environment:
+    #     description: This is the environment value where this workflow runs
+    #     default: 'dev'
+    #     required: true
+    #     type: choice
+    #     options: 
+    #       - dev
+    #       - prod
+    #       - staging
+        
 
 jobs: 
   code:
@@ -9,17 +20,24 @@ jobs:
     steps: 
       - name: checkout code
         run: echo "Cloning code from github"
+
   build:
+    needs: [code]
     runs-on: ubuntu-latest
     steps: 
       - name: build the code
         run: echo "Containerizing"
+
   test:
+    needs: [build]
     runs-on: ubuntu-latest
     steps: 
       - name: testing the code
         run: echo "Testing the build"
+
   deploy:
+    # if: inputs.environment == 'dev'
+    needs: [build, test]
     runs-on: ubuntu-latest
     steps: 
       - name: deployment
