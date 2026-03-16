@@ -1,0 +1,6 @@
+Workflows for security checks: (DevSecOps)
+
+code-quality.yml
+secrets-scan.yml
+dependency-scan.yml
+docker-lint.yml
